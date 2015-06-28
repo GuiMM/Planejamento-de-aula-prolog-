@@ -13,7 +13,7 @@ at(bruno,rua).
 at(aline,rua).
 at(john,rua).
 at(aura,rua).
-aula(aline,a,9,11).
+aula(aline,a,9,11).  %posso usar numero? no predicado, posso.
 aula(bruno,b,11,13).
 aula(john,a,14,16).  %em um periodo maior que 1 hora os eletronicos serao desligados.
 aula(aura,a,11,13).  %depois da aula da aline vem a aula da aura
@@ -30,13 +30,11 @@ luzes(john).
 luzes(aline).
 luzes(aura).
 
-%se um professor estiver em sala, outro não pode entrar!
-emsala(Professor):- at(Professor,rua),aula(Professor,Sala,_,_),sala_ocupada(Sala),write_ln('sala ocupada'),!.
-
+emsala(Professor):- at(Professor,rua),aula(Professor,Sala,_,_),sala_ocupada(Sala),write_ln('sala ocupada'),!.            %se um professor estiver em sala, outro não pode entrar!
 emsala(Professor):- at(Professor,rua),aula(Professor,Sala,_,_), write_ln('professor chegou em sala'),retract(at(Professor,rua)),assert(at(Professor,Sala)),assert(sala_ocupada(Sala)),findall(_,prepara_sala(Professor),_).
 
 
-prepara_sala(X) :-  data_show(X),aula(X,Sala,_,_),prepara_data_show(Sala).      %se o professor gosta de datashow e ele nao está ligado, liga.
+prepara_sala(X) :-  data_show(X),aula(X,Sala,_,_),prepara_data_show(Sala).                 %se o professor gosta de datashow e ele nao está ligado, liga.
 prepara_sala(X) :- ar_condicionado(X),aula(X,Sala,_,_),prepara_ar(Sala).
 prepara_sala(X) :- computador(X),aula(X,Sala,_,_),prepara_computador(Sala).
 prepara_sala(X) :- aula(X,Sala,_,_),prepara_luzes(Sala).
